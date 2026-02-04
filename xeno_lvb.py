@@ -129,13 +129,14 @@ class Info():
     def __init__(self, entry):
         self.bdat_id = u32(entry)
         self.xfrm_idx = u32(entry[4:])
-        self._unk = u16(entry[8:])
+        self.shape = u16(entry[8:])
         self.sequential_id = u16(entry[10:])
         self.hash_id = u32(entry[12:])
 
     def to_json(self):
         return {
             'bdat_id': f"<{self.bdat_id:08X}>",
+            'shape': self.shape,
             'sequential_id': self.sequential_id,
             'hash_id': f"<{self.hash_id:08X}>"
         }
@@ -145,9 +146,10 @@ class InfoLegacy():
     def __init__(self, entry):
         self.name_id = u32(entry)
         self.xfrm_idx = u32(entry[8:])
+        self.shape = u32(entry[12:])
 
     def to_json(self):
-        return None
+        return { 'shape': self.shape }
 
 # An object's transformation matrix
 class Xform():
